@@ -5,8 +5,11 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.util.*;
 
+
+
 @Entity
 @Table(name="employee_table")
+@NamedQuery(name="getALLEmployees",query="From Employee")
 @DynamicUpdate  //this annotation helps like if we are updating a particular value update on that filed is only updated not for whole recore eg:if we want to update salary =1000 for id =1 normally if we dont give it would be like whole recore is updated here update salary=1000 from employeetable where id=1 will be triggered.
 public class Employee {
     @Id
@@ -19,6 +22,8 @@ public class Employee {
 
     @Column(name="salary",unique=true)
     private int salary;
+
+
 
 
     public Collection<Address> getAddressList() {
