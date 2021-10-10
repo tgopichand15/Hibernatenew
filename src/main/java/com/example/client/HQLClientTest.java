@@ -1,5 +1,6 @@
 package com.example.client;
 
+import com.example.entities.Address;
 import com.example.entities.Employee;
 import com.example.util.HibernateUtil;
 import org.hibernate.Session;
@@ -18,10 +19,12 @@ public class HQLClientTest {
         //getEmployeebyId(sf);
         //getEmployeebyIdandSalary(sf);
         //getnameFromEmployee(sf);
-        insertRecordsintoDB(sf);
+        //insertRecordsintoDB(sf);
+        //updateEmployeebuEmailbyid(sf);
+        getEmployeeByIDHQLQuery(sf);
     }
 
-    public static void getAllEmployees(SessionFactory sf){
+    /*public static void getAllEmployees(SessionFactory sf){
 
         try(Session session =sf.openSession()){
             String HQl="From Employee";
@@ -93,7 +96,8 @@ public class HQLClientTest {
     }
 
     public static void insertRecordsintoDB(SessionFactory sf){
-        //insertionn we can't use insert into in hql we can copy from other table and insert into this table provided both shoudl have same table structure
+        //insertionn we can't use insert into in hql we can copy from other table and insert into this table provided both shoudl have same table structure otherwise we can insert using session.save  method to insert
+
         try(Session session=sf.openSession()){
             String HQl="Insert into Employee(id,name,salary,addressList" +"select id,name,salary,addressList from backupEmployee";
 
@@ -102,10 +106,68 @@ public class HQLClientTest {
             int executeupdate=query.executeUpdate();
 
             if(executeupdate>0){
-                System.out.println(executeupdate+"insertion succeded")
+                System.out.println(executeupdate+"insertion succeded");
             }
 
             session.getTransaction().commit();
         }
     }
-}
+
+    public static void insertRecordsintoDB(SessionFactory sf){
+        //insertionn we can't use insert into in hql we can copy from other table and insert into this table provided both shoudl have same table structure otherwise we can insert using session.save  method to insert
+
+        try(Session session=sf.openSession()){
+            String HQl="Insert into Employee(id,name,salary,addressList" +"select id,name,salary,addressList from backupEmployee";
+
+            Query query=session.createQuery(HQl);
+            session.beginTransaction();
+            int executeupdate=query.executeUpdate();
+
+            if(executeupdate>0){
+                System.out.println(executeupdate+"insertion succeded");
+            }
+
+            session.getTransaction().commit();
+        }
+    }
+
+    public static void UpdateEmployyebyEmailbyid(SessionFactory sf){
+        int id=2;
+        String newemailid="gopi@test.com";
+        try(Session session=sf.openSession()){
+            String HQl="Update Employee set email:=newemailid where empid:id";
+
+            Query query=session.createQuery(HQl);
+            query.setParameter("newemailid",newemailid);
+            query.setParamaeter("id",id);
+            session.beginTransaction();
+            int executeupdate=query.executeUpdate();
+
+            if(executeupdate>0){
+                System.out.println(executeupdate+"updation succeded");
+            }
+
+            session.getTransaction().commit();
+        }
+    }*/
+
+    public static void getEmployeeByIDHQLQuery(SessionFactory sf){
+        int emp=1;
+        try(Session session=sf.openSession()){
+            String HQl="from Employee emp LEFT JOIN FETCH emp.address where emp.employeeId=:emp";
+
+            Query query=session.createQuery(HQl);
+            query.setParameter("emp",emp);
+            session.beginTransaction();
+            Address a=(Address)query.uniqueResult();
+            System.out.println("Address is "+a);
+            session.getTransaction().commit();
+        }
+    }
+
+    }
+
+
+
+
+
