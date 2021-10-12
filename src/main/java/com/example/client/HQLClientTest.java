@@ -2,6 +2,7 @@ package com.example.client;
 
 import com.example.entities.Address;
 import com.example.entities.Employee;
+import com.example.entities.TestEmployee;
 import com.example.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,7 +22,9 @@ public class HQLClientTest {
         //getnameFromEmployee(sf);
         //insertRecordsintoDB(sf);
         //updateEmployeebuEmailbyid(sf);
-        getEmployeeByIDHQLQuery(sf);
+        //getEmployeeByIDHQLQuery(sf);
+        //getEmployeeGroupBYExample(sf);
+        //createTestEmployee(sf);
     }
 
     /*public static void getAllEmployees(SessionFactory sf){
@@ -151,7 +154,7 @@ public class HQLClientTest {
         }
     }*/
 
-    public static void getEmployeeByIDHQLQuery(SessionFactory sf){
+   /* public static void getEmployeeByIDHQLQuery(SessionFactory sf){
         int emp=1;
         try(Session session=sf.openSession()){
             String HQl="from Employee emp LEFT JOIN FETCH emp.address where emp.employeeId=:emp";
@@ -163,7 +166,45 @@ public class HQLClientTest {
             System.out.println("Address is "+a);
             session.getTransaction().commit();
         }
+    }*/
+
+
+
+    /*public static void getEmployeeGroupBYExample(SessionFactory sf){
+        int emp=1;
+        try(Session session=sf.openSession()){
+            String HQl="select t.department,sum(t.salary) FROM TestEmployee t group by t.department";
+
+            Query<Object[]> query=session.createQuery(HQl);
+            session.beginTransaction();
+            List<Object[]> a=(List<Object[]>)query.list();
+            for(Object[] l : a){
+                System.out.print((String) l[0]);
+                System.out.println((Long) l[1]);
+            }
+            session.getTransaction().commit();
+        }
     }
+
+
+    public static void createTestEmployee(SessionFactory sf){
+        try(Session session= HibernateUtil.getSessionFactory().openSession()){
+            session.beginTransaction();
+            TestEmployee t=new TestEmployee();
+            t.setName("Ramesh");
+            t.setDepartment("Mech");
+            t.setSalary(40000);
+
+            session.save(t);
+            session.getTransaction().commit();
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }*/
+
+
 
     }
 
