@@ -31,7 +31,7 @@ public class CriteriaQueryExample {
         return results;
     }
 
-    public TestEmployee useCriteriaExpressions(){
+    /*public TestEmployee useCriteriaExpressions(){
         Session session= HibernateUtil.getSessionFactory().openSession();
         CriteriaBuilder cb=session.getCriteriaBuilder();
         CriteriaQuery<TestEmployee> cr=cb.createQuery(TestEmployee.class);
@@ -80,16 +80,29 @@ public class CriteriaQueryExample {
 
 
        // TestEmployee t=(TestEmployee)((org.hibernate.query.Query) query).uniqueResult();
-            System.out.println(t);
+            //System.out.println(t);
         return t;
 
-    }
+    }*/
 
-    public static void main(String[] args){
+    /*public void GroupByExample(){
+        Session session= HibernateUtil.getSessionFactory().openSession();
+        CriteriaBuilder cb=session.getCriteriaBuilder();
+        CriteriaQuery<TestEmployee> cr=cb.createQuery(TestEmployee.class);
+        Root<TestEmployee> root=cr.from(TestEmployee.class);
+        root.
+        Query query=session.createQuery(cr.groupBy(root.get("department")));
+        TestEmployee t=(TestEmployee)((org.hibernate.query.Query) query).list();
+        t.
+        System.out.println(t);
+
+    }*/
+
+   /* public static void main(String[] args){
         CriteriaQueryExample c=new CriteriaQueryExample();
-        c.useCriteriaExpressions();
+        c.GroupByExample();
 
-    }
+    }*/
 
 
 }
