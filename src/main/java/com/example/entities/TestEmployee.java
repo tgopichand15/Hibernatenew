@@ -5,10 +5,9 @@ import javax.persistence.*;
 
 //this is modified employee class for testing Group by feature in hinernate
 @Entity
-@NamedQueries(
-        @NamedQuery(name="getAllEmployees",query="select name,department,salary from TestEmployee"),
-        name=@NamedQuery(name+"getEmployeesSalaryGreatethan40000",query="select name,department,salary from TestEmployee where salary>40000")
-)
+@NamedQueries(value= {
+        @NamedQuery(name = "getAllEmployees", query = "select name,department,salary from TestEmployee"),
+        @NamedQuery(name = "getEmployeesSalaryGreatethan40000", query = "select name,department,salary from TestEmployee where salary>40000")})
 public class TestEmployee {
 
     @Id

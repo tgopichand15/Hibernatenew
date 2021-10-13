@@ -8,10 +8,10 @@ import org.hibernate.query.Query;
 
 import java.util.*;
 
-public class NativeQueryExample {
+public class NamedQueryExample {
 
     public static void main(String[] args){
-       getTestEmployees();
+       //getTestEmployees();
         getEmployeesBasedonSalary();
     }
 
