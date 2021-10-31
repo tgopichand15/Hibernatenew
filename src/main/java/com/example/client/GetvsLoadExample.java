@@ -10,8 +10,9 @@ public class GetvsLoadExample {
     //get will return null if object does not exist in Db this will always hoit DB
     //load will throw Objectnotfoundexception load method uses proxy object from db and returns it,it uses lazy loading it will use proxy to hit db
     public static void main(String[] args){
-        getExample();
-        loadExample();
+       // getExample();
+        //loadExample();
+        byIdExample();
     }
 
     public static void getExample(){
@@ -27,6 +28,16 @@ public class GetvsLoadExample {
     public static void loadExample(){
         try(Session session= HibernateUtil.getSessionFactory().openSession()){
             TestEmployee t=session.load(TestEmployee.class,10);
+            System.out.println(t);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void byIdExample(){
+        try(Session session= HibernateUtil.getSessionFactory().openSession()){
+            TestEmployee t=session.byId(TestEmployee.class).load(1);
             System.out.println(t);
         }
         catch(Exception e){
